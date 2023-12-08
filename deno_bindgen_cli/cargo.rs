@@ -29,8 +29,10 @@ impl Build {
     cmd
       .current_dir(path)
       .arg("build")
-      .arg("--lib")
-      .arg("--message-format=json")
+      .arg("--features")
+      .arg("media-gstreamer")
+      // .arg("--lib")
+      // .arg("--message-format=json")
       .stdout(Stdio::piped());
 
     if self.release {

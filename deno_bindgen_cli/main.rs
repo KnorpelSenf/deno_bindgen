@@ -21,22 +21,23 @@ struct Opt {
 }
 
 fn main() -> std::io::Result<()> {
+  println!(" ! Start ! ");
   let opt = Opt::from_args();
 
   let cwd = std::env::current_dir().unwrap();
+
+  println!(" ! CWD {:?}! ", cwd);
+
   let Artifact { path, .. } =
-    cargo::Build::new().release(opt.release).build(&cwd)?;
+     cargo::Build::new().release(opt.release).build(&cwd)?;
 
   let name = cargo::metadata()?;
   println!("Initializing {name}");
 
   let path = PathBuf::from(path);
-  // https://github.com/denoland/deno/issues/21172
-  #[cfg(target_os = "windows")]
-  let path = path
-    .strip_prefix(&cwd)
-    .expect("path is not a prefix of cwd");
 
+  println!(" ! PATH {:?}! ", path);
+  
   unsafe { dlfcn::load_and_init(&path, opt.out, opt.lazy_init)? };
 
   println!("Ready {name}");
