@@ -4,6 +4,10 @@ Use this branch to create a custom version with different cargo build parameter
 ```sh
 cargo build --release
 ```
+Alias this for handy access
+```sh
+alias servo_deno_bindgen="$(pwd)/target/release/deno_bindgen"
+```
 
 The info how to build simple servo is in servo/ports/libsimpleservo/README.md
 ```sh
